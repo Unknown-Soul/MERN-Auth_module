@@ -3,6 +3,17 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
+
+// const SubDomain = new mongoose.Schema({
+//     target : {
+//         type: String,
+//     },
+//     subdomainlist :{
+//         type : String,
+
+//     }
+// });
+
 const UserSchema  =  new mongoose.Schema({
     username : {
         type : String,
@@ -24,7 +35,11 @@ const UserSchema  =  new mongoose.Schema({
         select : false
     },
     resetPasswordToken: String,
-    resetPasswordExpire : Date
+    resetPasswordExpire : Date,
+    SubDomain : {
+        target : {type: String},
+        subdomainlist :{type : String}
+    }  
 });
 
 // run before schema , this is middleware that is run brfore data get saved and hash our password
