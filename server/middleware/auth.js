@@ -5,8 +5,8 @@ import ErrorResponse from '../utils/errorResponse.js';
 
 export const protect =  async (req,res, next) => {
     let token;
-
-    if(req.headers.authorization &&  req.headers.authorization.startsWith("Bearer")){
+    console.log("Reached to Middleware");
+    if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
         token = req.headers.authorization.split(" ")[1]
     }
     if(!token){
@@ -23,6 +23,6 @@ export const protect =  async (req,res, next) => {
         req.user = user;
         next();
     }catch{
-        return next(new ErrorResponse("Not authorised to acces this route", 401));
+        return next(new ErrorResponse("Not authorised to acces this routee", 401));
     }
 };

@@ -2,6 +2,7 @@ import { throws } from 'assert';
 import child_process from 'child_process';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
+import ErrorResponse from '../utils/errorResponse.js'
 
 
 export const HomeScreen = async (req,res,next) =>{
@@ -23,6 +24,8 @@ export const HomeScreen = async (req,res,next) =>{
                 console.log(`data:${data}`);
                 if(req.headers.authorization &&  req.headers.authorization.startsWith("Bearer")){
                     token = req.headers.authorization.split(" ")[1]
+                }else{
+                    console.log("error with token");
                 }
                 if(!token){
                     return next(new ErrorResponse("Not Authorized to Access this route"),401);
@@ -35,9 +38,13 @@ export const HomeScreen = async (req,res,next) =>{
                         return next(new ErrorResponse("No User Found with this Id",404));
                     }
                     user.SubDomain.target = target;
-                    user.SubDomain.subdomainlist = data.toString();
+                    user.SubDomain.subdomainlist = data;
                     user.save();
-                    
+                    res.status(200).json({
+                        success: true,
+                        data: "Data Saved Successfully",
+                    });
+    
                     
                 }catch{
                     return next(new ErrorResponse("Not authorised to acces this route", 401));
