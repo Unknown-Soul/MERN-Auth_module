@@ -14,6 +14,8 @@ import crypto from 'crypto';
 //     }
 // });
 
+
+
 const UserSchema  =  new mongoose.Schema({
     username : {
         type : String,
@@ -36,10 +38,14 @@ const UserSchema  =  new mongoose.Schema({
     },
     resetPasswordToken: String,
     resetPasswordExpire : Date,
-    SubDomain : {
-        target : {type: String},
-        subdomainlist :{type : String}
-    }  
+    SubDomain:[{
+            target : {type: String},
+            subdomainlist :{type : String}
+        }]
+    // SubDomain : {
+    //     target : {type: String},
+    //     subdomainlist :{type : String}
+    // }  
 });
 
 // run before schema , this is middleware that is run brfore data get saved and hash our password
