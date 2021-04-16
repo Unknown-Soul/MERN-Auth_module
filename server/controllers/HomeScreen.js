@@ -20,6 +20,9 @@ export const HomeScreen = async (req, res, next) => {
         //   })
 
         const subprocess = runScript();
+        function runScript() {
+            return spawn('python3', [`Python_Script/SubDomain.py`, target]);
+        }
         subprocess.stdout.on('data', async (data) => {
             console.log(`data:${data}`);
             if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
@@ -74,9 +77,7 @@ export const HomeScreen = async (req, res, next) => {
         // });
 
 
-        function runScript() {
-            return spawn('python3', [`Python_Script/SubDomain.py`, target]);
-        }
+        
 
     } catch (error) {
         res.status(400).json({

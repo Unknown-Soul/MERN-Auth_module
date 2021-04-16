@@ -22,7 +22,8 @@ export const protect =  async (req,res, next) => {
 
         req.user = user;
         next();
-    }catch{
+    }catch(error){
+        console.log(error.toString());
         return next(new ErrorResponse("Not authorised to acces this routee", 401));
     }
 };
